@@ -17,6 +17,7 @@ const App = () => {
       {texts.length > 0 && (
         <TypingFrame
           text={texts[currentTextIndex].codeString}
+          description={texts[currentTextIndex].description}
           onNextText={handleNextText}
         />
       )}

@@ -1,52 +1,62 @@
 [
   {
     "id": 1,
-    "codeString": "const getRandomNumber = () => Math.floor(Math.random() * 100);",
-    "language": "Javascript"
+    "codeString": "function getRandomNumber() {\n  return Math.floor(Math.random() * 100);\n}",
+    "language": "Javascript",
+    "description": "Returns a random number between 0 and 99."
   },
   {
     "id": 2,
-    "codeString": "const reverseString = str => str.split('').reverse().join('');",
-    "language": "Javascript"
+    "codeString": "function reverseString(str) {\n  return str.split('').reverse().join('');\n}",
+    "language": "Javascript",
+    "description": "Reverses the order of characters in a string."
   },
   {
     "id": 3,
-    "codeString": "const isEven = num => num % 2 === 0;",
-    "language": "Javascript"
+    "codeString": "function isEven(num) {\n  return num % 2 === 0;\n}",
+    "language": "Javascript",
+    "description": "Checks if a number is even."
   },
   {
     "id": 4,
-    "codeString": "const getRandomElement = arr => arr[Math.floor(Math.random() * arr.length)];",
-    "language": "Javascript"
+    "codeString": "function getRandomElement(arr) {\n  const index = Math.floor(Math.random() * arr.length);\n  return arr[index];\n}",
+    "language": "Javascript",
+    "description": "Selects a random element from an array."
   },
   {
     "id": 5,
-    "codeString": "const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);",
-    "language": "Javascript"
+    "codeString": "function capitalize(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}",
+    "language": "Javascript",
+    "description": "Converts the first letter of a string to uppercase."
   },
   {
     "id": 6,
-    "codeString": "const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);",
-    "language": "Javascript"
+    "codeString": "function shuffleArray(arr) {\n  return arr.sort(() => Math.random() - 0.5);\n}",
+    "language": "Javascript",
+    "description": "Randomly shuffles the elements of an array."
   },
   {
     "id": 7,
-    "codeString": "const factorial = num => num <= 1 ? 1 : num * factorial(num - 1);",
-    "language": "Javascript"
+    "codeString": "function factorial(num) {\n  if (num <= 1) return 1;\n  return num * factorial(num - 1);\n}",
+    "language": "Javascript",
+    "description": "Calculates the factorial of a number using recursion."
   },
   {
     "id": 8,
-    "codeString": "const getCurrentTimestamp = () => Date.now();",
-    "language": "Javascript"
+    "codeString": "function getCurrentTimestamp() {\n  return Date.now();\n}",
+    "language": "Javascript",
+    "description": "Gets the current timestamp in milliseconds."
   },
   {
     "id": 9,
-    "codeString": "const isPalindrome = str => str === str.split('').reverse().join('');",
-    "language": "Javascript"
+    "codeString": "function isPalindrome(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  return cleaned === cleaned.split('').reverse().join('');\n}",
+    "language": "Javascript",
+    "description": "Checks if a string is a palindrome, ignoring spaces and special characters."
   },
   {
     "id": 10,
-    "codeString": "const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));",
-    "language": "Javascript"
+    "codeString": "function sleep(ms) {\n  return new Promise(resolve => setTimeout(resolve, ms));\n}",
+    "language": "Javascript",
+    "description": "Pauses execution for a specified number of milliseconds."
   }
 ]
