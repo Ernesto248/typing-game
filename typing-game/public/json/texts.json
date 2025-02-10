@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "codeString": "const getRandomNumber = () => Math.floor(Math.random() * 100);",
+    "language": "Javascript"
+  },
+  {
+    "id": 2,
+    "codeString": "const reverseString = str => str.split('').reverse().join('');",
+    "language": "Javascript"
+  },
+  {
+    "id": 3,
+    "codeString": "const isEven = num => num % 2 === 0;",
+    "language": "Javascript"
+  },
+  {
+    "id": 4,
+    "codeString": "const getRandomElement = arr => arr[Math.floor(Math.random() * arr.length)];",
+    "language": "Javascript"
+  },
+  {
+    "id": 5,
+    "codeString": "const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);",
+    "language": "Javascript"
+  },
+  {
+    "id": 6,
+    "codeString": "const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);",
+    "language": "Javascript"
+  },
+  {
+    "id": 7,
+    "codeString": "const factorial = num => num <= 1 ? 1 : num * factorial(num - 1);",
+    "language": "Javascript"
+  },
+  {
+    "id": 8,
+    "codeString": "const getCurrentTimestamp = () => Date.now();",
+    "language": "Javascript"
+  },
+  {
+    "id": 9,
+    "codeString": "const isPalindrome = str => str === str.split('').reverse().join('');",
+    "language": "Javascript"
+  },
+  {
+    "id": 10,
+    "codeString": "const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));",
+    "language": "Javascript"
+  }
+]
