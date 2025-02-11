@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
 
-export const useTyping = (text: string) => {
+export const useTyping = (text: string, isModalOpen: boolean) => {
   const [userInput, setUserInput] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [errors, setErrors] = useState<number>(0);
   const [shake, setShake] = useState<boolean>(false);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [wpm, setWpm] = useState<number>(0);
 
   const reset = () => {
     setUserInput("");
     setCurrentIndex(0);
     setErrors(0);
+    setIsCompleted(false);
+    setStartTime(null);
+    setWpm(0);
   };
 
+  // Efecto para manejar las pulsaciones del teclado
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (isCompleted || isModalOpen) return;
+      if (!startTime) setStartTime(Date.now());
+
       const expectedChar = text[currentIndex];
 
       if (event.key === "Enter" && expectedChar === "\n") {
@@ -38,11 +48,32 @@ export const useTyping = (text: string) => {
         setUserInput((prev) => prev.slice(0, -1));
         setCurrentIndex((prev) => Math.max(0, prev - 1));
       }
+
+      // Si se llega al último caracter, marcar como completado
+      if (currentIndex +1 === text.length) {
+        setIsCompleted(true);
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [text, currentIndex]);
+  }, [text, currentIndex, startTime, isCompleted, isModalOpen]);
 
-  return { userInput, currentIndex, errors, shake, reset };
+  // Efecto para actualizar el WPM cada segundo
+  useEffect(() => {
+    if (!startTime || isCompleted || isModalOpen) return;
+
+    const interval = setInterval(() => {
+      const elapsedTime = (Date.now() - startTime) / 60000; // Tiempo en minutos
+      // Se asume que cada 5 caracteres equivale a una palabra
+      const wordsTyped = userInput.length / 5;
+      if (elapsedTime > 0) {
+        setWpm(Math.round(wordsTyped / elapsedTime));
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [startTime, userInput, isCompleted, isModalOpen]);
+
+  return { userInput, currentIndex, errors, shake, isCompleted, wpm, reset };
 };

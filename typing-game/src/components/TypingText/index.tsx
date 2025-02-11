@@ -20,11 +20,11 @@ function TypingText({ text, userInput, currentIndex, shake }: TypingTextProps) {
   return (
     <motion.p
       className="text-lg font-mono bg-gray-700 p-3 rounded-md text-left leading-relaxed whitespace-pre-wrap"
-      animate={shake ? { x: [-5, 5, -5, 5, 0] } : { x: 0 }} // Animación de shake
+      animate={shake ? { x: [-5, 5, -5, 5, 0] } : { x: 0 }}
       transition={{ duration: 0.2 }}
     >
       {lines.map((line, lineIndex) => (
-        <span key={lineIndex} className="block">
+        <span key={`line-${lineIndex}`} className="block">
           {line.split("").map((char, charIndex) => {
             const globalIndex = computeGlobalIndex(lineIndex, charIndex);
             let displayChar: string | React.JSX.Element = char;
@@ -47,7 +47,7 @@ function TypingText({ text, userInput, currentIndex, shake }: TypingTextProps) {
 
             return (
               <motion.span
-                key={globalIndex}
+                key={`char-${lineIndex}-${charIndex}`}
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
@@ -70,6 +70,7 @@ function TypingText({ text, userInput, currentIndex, shake }: TypingTextProps) {
           })}
           {lineIndex < lines.length - 1 && (
             <motion.span
+              key={`enter-${lineIndex}`}
               animate={
                 text[currentIndex] === "\n"
                   ? { scale: 1.2, rotate: 15, color: "#D97706" }
