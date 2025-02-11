@@ -8,9 +8,10 @@ interface Props {
   text: string;
   description: string;
   onNextText: () => void;
+  onPreviousText?: () => void;
 }
 
-const TypingFrame = ({ text, onNextText, description }: Props) => {
+const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { userInput, currentIndex, errors, shake, isCompleted, wpm, reset } =
     useTyping(text, isModalOpen);
@@ -32,6 +33,11 @@ const TypingFrame = ({ text, onNextText, description }: Props) => {
     reset();
     onNextText();
   };
+
+  const handleTryAgain = ()=>{
+    setIsModalOpen(false);
+    reset();
+  }
 
   return (
     <motion.div
@@ -59,6 +65,7 @@ const TypingFrame = ({ text, onNextText, description }: Props) => {
         className="relative bg-gray-800 p-4 rounded-lg shadow-lg"
       >
         <TypingText
+          key={text}
           text={text}
           userInput={userInput}
           currentIndex={currentIndex}
@@ -84,19 +91,36 @@ const TypingFrame = ({ text, onNextText, description }: Props) => {
             Speed: <span className="text-green-400 font-semibold">{wpm} WPM</span>
           </p>
           <p className="text-gray-400 text-lg">
-            Errors: <span className="text-red-400 font-semibold">{errors}</span>
+            Errors:{" "}
+            <span className="text-red-400 font-semibold">{errors}</span>
           </p>
         </div>
 
-        {/* Botón Next Code */}
-        <motion.button
-          onClick={handleNextText}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
-        >
-          Next Code
-        </motion.button>
+        {/* Botones de navegación */}
+        <div className="flex gap-4">
+          {onPreviousText && (
+            <motion.button
+              onClick={(e) => {
+                e.currentTarget.blur();
+                reset();
+                onPreviousText();
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all"
+            >
+              Previous Code
+            </motion.button>
+          )}
+          <motion.button
+            onClick={handleNextText}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all"
+          >
+            Next Code
+          </motion.button>
+        </div>
       </motion.div>
 
       {/* Modal de resultados */}
@@ -106,6 +130,7 @@ const TypingFrame = ({ text, onNextText, description }: Props) => {
         onClose={handleOnClose}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
+        onTryAgain={handleTryAgain}
       />
     </motion.div>
   );

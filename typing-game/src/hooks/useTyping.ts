@@ -1,5 +1,17 @@
 import { useEffect, useState } from "react";
 
+// const debounce = (func: Function, delay: number) => {
+//   let timeoutId: NodeJS.Timeout | null;
+//   return (...args: any[]) => {
+//     if (timeoutId) {
+//       clearTimeout(timeoutId);
+//     }
+//     timeoutId = setTimeout(() => {
+//       func.apply(null, args);
+//     }, delay);
+//   };
+// };
+
 export const useTyping = (text: string, isModalOpen: boolean) => {
   const [userInput, setUserInput] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -50,7 +62,7 @@ export const useTyping = (text: string, isModalOpen: boolean) => {
       }
 
       // Si se llega al último caracter, marcar como completado
-      if (currentIndex +1 === text.length) {
+      if (currentIndex + 1 === text.length) {
         setIsCompleted(true);
       }
     };

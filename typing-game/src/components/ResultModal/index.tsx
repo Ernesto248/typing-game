@@ -4,11 +4,19 @@ interface ResultModalProps {
   wpm: number;
   errors: number;
   onClose: () => void;
+  onTryAgain: () => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const ResultModal = ({ wpm, errors, onClose, isOpen, setIsOpen }: ResultModalProps) => {
+const ResultModal = ({
+  wpm,
+  errors,
+  onClose,
+  isOpen,
+  setIsOpen,
+  onTryAgain, // Recibimos la función para intentar nuevamente
+}: ResultModalProps) => {
   const handleClose = () => {
     setIsOpen(false);
     onClose();
@@ -33,17 +41,35 @@ const ResultModal = ({ wpm, errors, onClose, isOpen, setIsOpen }: ResultModalPro
             className="bg-gray-900 p-6 rounded-2xl shadow-xl w-96 text-center border border-gray-700"
           >
             <h2 className="text-3xl font-bold text-white mb-4">Your Results</h2>
-            <p className="text-lg text-green-400 font-medium">Speed: <span className="text-white">{wpm} WPM</span></p>
-            <p className="text-lg text-red-400 font-medium">Errors: <span className="text-white">{errors}</span></p>
+            <p className="text-lg text-green-400 font-medium">
+              Speed: <span className="text-white">{wpm} WPM</span>
+            </p>
+            <p className="text-lg text-red-400 font-medium">
+              Errors: <span className="text-white">{errors}</span>
+            </p>
 
-            <motion.button
-              onClick={handleClose}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="mt-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all"
-            >
-              Next Code
-            </motion.button>
+            {/* Contenedor para los botones con gap */}
+            <div className="flex justify-between mt-4 gap-4">
+              {/* Botón de 'Try Again' */}
+              <motion.button
+                onClick={onTryAgain} // Llamada a la función onTryAgain
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all w-48"
+              >
+                Try Again
+              </motion.button>
+
+              {/* Botón de 'Next Code' */}
+              <motion.button
+                onClick={handleClose}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all w-48"
+              >
+                Next Code
+              </motion.button>
+            </div>
           </motion.div>
         </motion.div>
       )}
