@@ -18,7 +18,7 @@ const useTexts = () => {
 
   const fetchTexts = async () => {
     try {
-      const response = await fetch("json/texts.json");
+      const response = await fetch("json/js.json");
       if (!response.ok) throw new Error("Failed to fetch texts");
 
       const data: Array<CodeFunctionText> = await response.json();
@@ -37,25 +37,26 @@ const useTexts = () => {
   }, []);
 
   const nextText = () => {
-    setCurrentTextIndex((prevIndex) => 
-      (prevIndex + 1) % shuffledTextsOrder.length
+    setCurrentTextIndex(
+      (prevIndex) => (prevIndex + 1) % shuffledTextsOrder.length
     );
   };
 
   const previousText = () => {
-    setCurrentTextIndex((prevIndex) => 
-      (prevIndex - 1 + shuffledTextsOrder.length) % shuffledTextsOrder.length
+    setCurrentTextIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + shuffledTextsOrder.length) % shuffledTextsOrder.length
     );
   };
 
   const currentText = texts[shuffledTextsOrder[currentTextIndex]];
 
-  return { 
-    texts, 
-    currentText, 
-    nextText, 
+  return {
+    texts,
+    currentText,
+    nextText,
     previousText,
-    shuffledTextsOrder 
+    shuffledTextsOrder,
   };
 };
 

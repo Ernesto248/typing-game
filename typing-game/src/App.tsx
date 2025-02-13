@@ -2,11 +2,15 @@ import { useState } from "react";
 import useTexts from "./hooks/useTexts";
 import TypingFrame from "./components/TypingFrame";
 import MainMenu from "./components/MainMenu";
+import { CodeType } from "./types/types.d";
 
 const App = () => {
   const { texts } = useTexts();
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [isTypingStarted, setIsTypingStarted] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<CodeType>(CodeType.JS);
+
+  const handleSelectedOption = (option: CodeType) => setSelectedOption(option);
 
   const handleNextText = () => {
     if (currentTextIndex >= texts.length - 1) return;
@@ -28,7 +32,11 @@ const App = () => {
         Dev Type
       </h1>
       {!isTypingStarted ? (
-        <MainMenu onStart={handleIsTypingStarted} />
+        <MainMenu
+          onStart={handleIsTypingStarted}
+          onSelectedOption={handleSelectedOption}
+          selectedOption={selectedOption}
+        />
       ) : (
         texts.length > 0 && (
           <TypingFrame

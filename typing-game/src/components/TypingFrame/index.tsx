@@ -8,13 +8,13 @@ interface Props {
   text: string;
   description: string;
   onNextText: () => void;
-  onPreviousText?: () => void;
+  onPreviousText: () => void;
 }
 
 const TypingFrame = ({
   text,
-  onNextText,
   description,
+  onNextText,
   onPreviousText,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -31,6 +31,12 @@ const TypingFrame = ({
     e.currentTarget.blur();
     reset();
     onNextText();
+  };
+
+  const handlePreviousText = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.blur();
+    reset();
+    onPreviousText();
   };
 
   const handleOnClose = () => {
@@ -76,7 +82,6 @@ const TypingFrame = ({
         />
       </motion.div>
 
-      {/* Progreso y estadísticas */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -99,22 +104,16 @@ const TypingFrame = ({
           </p>
         </div>
 
-        {/* Botones de navegación */}
         <div className="flex gap-4">
-          {onPreviousText && (
-            <motion.button
-              onClick={(e) => {
-                e.currentTarget.blur();
-                reset();
-                onPreviousText();
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all"
-            >
-              Previous Code
-            </motion.button>
-          )}
+          <motion.button
+            onClick={handlePreviousText}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all"
+          >
+            Previous Code
+          </motion.button>
+
           <motion.button
             onClick={handleNextText}
             whileHover={{ scale: 1.05 }}
@@ -126,7 +125,6 @@ const TypingFrame = ({
         </div>
       </motion.div>
 
-      {/* Modal de resultados */}
       <ResultModal
         errors={errors}
         wpm={wpm}
