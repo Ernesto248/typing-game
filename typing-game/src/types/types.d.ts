@@ -4,3 +4,9 @@ export interface CodeFunctionText {
   language: string;
   description: string;
 }
+
+export enum CodeType {
+  JS = "JavaScript",
+  REACT = "React",
+  TS = "TypeScript",
+}

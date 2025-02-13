@@ -11,7 +11,12 @@ interface Props {
   onPreviousText?: () => void;
 }
 
-const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) => {
+const TypingFrame = ({
+  text,
+  onNextText,
+  description,
+  onPreviousText,
+}: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { userInput, currentIndex, errors, shake, isCompleted, wpm, reset } =
     useTyping(text, isModalOpen);
@@ -34,10 +39,10 @@ const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) =
     onNextText();
   };
 
-  const handleTryAgain = ()=>{
+  const handleTryAgain = () => {
     setIsModalOpen(false);
     reset();
-  }
+  };
 
   return (
     <motion.div
@@ -46,7 +51,6 @@ const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) =
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="relative w-full max-w-3xl mx-auto p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-800"
     >
-      {/* Descripción */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -57,7 +61,6 @@ const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) =
         <p className="text-gray-400">{description}</p>
       </motion.div>
 
-      {/* Texto para escribir */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -88,11 +91,11 @@ const TypingFrame = ({ text, onNextText, description, onPreviousText }: Props) =
             </span>
           </p>
           <p className="text-gray-400 text-lg">
-            Speed: <span className="text-green-400 font-semibold">{wpm} WPM</span>
+            Speed:{" "}
+            <span className="text-green-400 font-semibold">{wpm} WPM</span>
           </p>
           <p className="text-gray-400 text-lg">
-            Errors:{" "}
-            <span className="text-red-400 font-semibold">{errors}</span>
+            Errors: <span className="text-red-400 font-semibold">{errors}</span>
           </p>
         </div>
 
