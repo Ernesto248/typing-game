@@ -9,6 +9,7 @@ interface Props {
   description: string;
   onNextText: () => void;
   onPreviousText: () => void;
+  onReturnToMenu: () => void;
 }
 
 const TypingFrame = ({
@@ -16,6 +17,7 @@ const TypingFrame = ({
   description,
   onNextText,
   onPreviousText,
+  onReturnToMenu,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { userInput, currentIndex, errors, shake, isCompleted, wpm, reset } =
@@ -57,6 +59,15 @@ const TypingFrame = ({
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="relative w-full max-w-3xl mx-auto p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-800"
     >
+      <motion.button
+        onClick={onReturnToMenu}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="absolute top-4 right-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md transition-all"
+      >
+        Return to Menu
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
