@@ -2,6 +2,7 @@ import { useState } from "react";
 import useTexts from "./hooks/useTexts";
 import TypingFrame from "./components/TypingFrame";
 import MainMenu from "./components/MainMenu";
+import GitHubFooter from "./components/GitHubFooter";
 import { CodeType } from "./types/types.d";
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6 relative">
       <h1 className="flex items-center text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-indigo-600 p-5 rounded-lg bg-black/80 shadow-2xl">
         <img src="/logo.svg" alt="DevType Logo" className="w-12 h-12 mr-4" />
         Dev Type
@@ -59,6 +60,8 @@ const App = () => {
           />
         )
       )}
+
+      <GitHubFooter repoUrl="https://github.com/Ernesto248/typing-game" />
     </main>
   );
 };
