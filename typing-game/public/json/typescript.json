@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "codeString": "function toHex(value: number): string {\n  return value.toString(16);\n}",
+    "language": "TypeScript",
+    "description": "Converts a number to a hexadecimal string."
+  },
+  {
+    "id": 2,
+    "codeString": "function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (...args: Parameters<F>) => void {\n  let timeoutId: ReturnType<typeof setTimeout>;\n  return (...args: Parameters<F>) => {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => func(...args), delay);\n  };\n}",
+    "language": "TypeScript",
+    "description": "Creates a debounce function to limit execution frequency."
+  },
+  {
+    "id": 3,
+    "codeString": "function deepClone<T>(obj: T): T {\n  return JSON.parse(JSON.stringify(obj));\n}",
+    "language": "TypeScript",
+    "description": "Performs a deep clone of an object."
+  },
+  {
+    "id": 4,
+    "codeString": "function getUnique<T>(array: T[]): T[] {\n  return Array.from(new Set(array));\n}",
+    "language": "TypeScript",
+    "description": "Removes duplicate values from an array."
+  },
+  {
+    "id": 5,
+    "codeString": "function chunkArray<T>(array: T[], size: number): T[][] {\n  return Array.from({ length: Math.ceil(array.length / size) }, (_, i) => array.slice(i * size, i * size + size));\n}",
+    "language": "TypeScript",
+    "description": "Splits an array into chunks of a given size."
+  },
+  {
+    "id": 6,
+    "codeString": "function sleep(ms: number): Promise<void> {\n  return new Promise(resolve => setTimeout(resolve, ms));\n}",
+    "language": "TypeScript",
+    "description": "Pauses execution for a given number of milliseconds."
+  },
+  {
+    "id": 7,
+    "codeString": "function swap<T>(arr: T[], index1: number, index2: number): void {\n  [arr[index1], arr[index2]] = [arr[index2], arr[index1]];\n}",
+    "language": "TypeScript",
+    "description": "Swaps two elements in an array."
+  },
+  {
+    "id": 8,
+    "codeString": "function isPrime(num: number): boolean {\n  if (num < 2) return false;\n  for (let i = 2; i <= Math.sqrt(num); i++) {\n    if (num % i === 0) return false;\n  }\n  return true;\n}",
+    "language": "TypeScript",
+    "description": "Checks if a number is prime."
+  },
+  {
+    "id": 9,
+    "codeString": "function countOccurrences<T>(arr: T[], value: T): number {\n  return arr.reduce((count, item) => (item === value ? count + 1 : count), 0);\n}",
+    "language": "TypeScript",
+    "description": "Counts how many times a value appears in an array."
+  },
+  {
+    "id": 10,
+    "codeString": "function randomHexColor(): string {\n  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;\n}",
+    "language": "TypeScript",
+    "description": "Generates a random hex color code."
+  }
+]

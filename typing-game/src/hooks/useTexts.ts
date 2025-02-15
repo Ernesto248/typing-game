@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CodeFunctionText } from "../types/types.d";
+import { CodeFunctionText, CodeType } from "../types/types.d";
 
 // Función para mezclar un array (algoritmo Fisher-Yates)
 const shuffleArray = <T>(array: T[]): T[] => {
@@ -11,30 +11,37 @@ const shuffleArray = <T>(array: T[]): T[] => {
   return shuffled;
 };
 
-const useTexts = () => {
+const useTexts = (codeType: CodeType) => {
   const [texts, setTexts] = useState<Array<CodeFunctionText>>([]);
   const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
   const [shuffledTextsOrder, setShuffledTextsOrder] = useState<number[]>([]);
 
+  const reset = () => {
+    setCurrentTextIndex(0);
+    setTexts([]);
+    setShuffledTextsOrder([]);
+  };
+
   const fetchTexts = async () => {
     try {
-      const response = await fetch("json/js.json");
+      reset();
+
+      const response = await fetch(`json/${codeType.toLowerCase()}.json`);
       if (!response.ok) throw new Error("Failed to fetch texts");
 
       const data: Array<CodeFunctionText> = await response.json();
-      // Mezclar los textos antes de guardarlos en el estado
       const shuffledTexts = shuffleArray(data);
       const order = Array.from(Array(shuffledTexts.length).keys());
       setShuffledTextsOrder(shuffleArray(order));
       setTexts(shuffledTexts);
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching texts:", err);
     }
   };
 
   useEffect(() => {
     fetchTexts();
-  }, []);
+  }, [codeType]);
 
   const nextText = () => {
     setCurrentTextIndex(

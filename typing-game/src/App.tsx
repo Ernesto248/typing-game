@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useTexts from "./hooks/useTexts";
 import TypingFrame from "./components/TypingFrame";
 import MainMenu from "./components/MainMenu";
 import { CodeType } from "./types/types.d";
 
 const App = () => {
-  const { texts } = useTexts();
-  const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
-  const [isTypingStarted, setIsTypingStarted] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<CodeType>(CodeType.JS);
+  const [isTypingStarted, setIsTypingStarted] = useState<boolean>(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
+  const { texts } = useTexts(selectedOption);
 
-  const handleSelectedOption = (option: CodeType) => setSelectedOption(option);
+  const handleSelectedOption = (option: CodeType) => {
+    setSelectedOption(option);
+    setCurrentTextIndex(0); // Reset the text index when changing option
+  };
+
+  // Reset typing state when changing option
+  useEffect(() => {
+    setIsTypingStarted(false);
+  }, [selectedOption]);
 
   const handleNextText = () => {
     if (currentTextIndex >= texts.length - 1) return;
